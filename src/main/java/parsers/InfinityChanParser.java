@@ -38,9 +38,11 @@ public class InfinityChanParser extends ImageParser {
 		imagesDownloaded=0;
 		this.delay=delay;
 		this.mode=mode;
+		
+		this.gui=gui;
+
 		this.limit=limit;
 		this.board=board;
-		this.gui=gui;
 	}
 	
 	
@@ -55,8 +57,9 @@ public class InfinityChanParser extends ImageParser {
 			
 			int temp = url.lastIndexOf(".net");
 			String temp1 = url.substring(temp+4);
+			System.out.println("temp1; "+temp1);
 			temp = temp1.indexOf("/res/");
-			temp1= temp1.substring(0, temp);
+			temp1= temp1.substring(1, temp);
 			File dir = new File(temp1);
 			dir.mkdir();
 			gui.appendLog("Folder '"+temp1+"'created'", true);
@@ -110,7 +113,7 @@ public class InfinityChanParser extends ImageParser {
 			String dl = pic.child(0).absUrl("href");
 			temp = dl.lastIndexOf("/");
 			temp1 = dl.substring(temp+1);
-			if(dl.startsWith("http://8ch.net/v/src/")){
+			if(dl.startsWith("http://8ch.net/") || dl.startsWith("https://media.8ch.net/")){
 				downloadPicture(dl,path+"/"+temp1);
 				imagesDownloaded++;
 				c++;

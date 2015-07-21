@@ -46,7 +46,28 @@ public class GUI {
 	private JLabel lblNewLabel;
 	private JLabel lblNewLabel_1;
 	private JLabel lblTag;
-
+	
+	private final String FOURCHAN_THREAD = "4chan-Thread - http://boards.4chan.org/x/res/123123";
+	private final String FOURCHAN_BOARD = "4chan-Board - http://boards.4chan.org/x/catalog";
+	
+	private final String INFINITYCHAN_THREAD = "Infinity Chan Thread - https://8chan.co/BOARD/res/THREADNR.html";
+	private final String INFINITYCHAN_BOARD = "Infinity Chan Board - https://8chan.co/BOARDNR/";
+	
+	private final String PAHEAL = "http://rule34.paheal.net/";
+	private final String XXX = "http://rule34.xxx/";
+	private final String GELBOORU = "http://gelbooru.com/";
+	
+	private final String TUMBLR = "Tumblr Artist - http://XxXxXxX.tumblr.com";
+	private final String IMGUR = "Imgur-Album - http://imgur.com/a/xXxXx";
+	
+	private final String GE_HENTAI_SINGLE = "http://g.e-hentai.org/ - Single Album Page";
+	private final String GE_HENTAI_MORE = "http://g.e-hentai.org/ - >=1 Pages";
+	
+	private final String ARCHIVE_MOE_THREAD = "archive.moe (Thread) - https://archive.moe/BOARD/thread/THREADNR/";
+	private final String ARCHIVE_MOE_BOARD = "archive-moe (Board) - https://archive.moe/BOARD/";
+	
+	
+	
 	private boolean parsing;
 
 	public GUI() {
@@ -133,7 +154,7 @@ public class GUI {
 
 				switch (comboBox.getSelectedItem().toString()) {
 				
-				case "http://rule34.xxx/":
+				case XXX:
 					Parsebtn.setEnabled(true);
 					Parsebtn.setFont(new Font("Dialog", Font.BOLD, 12));
 					Parsebtn.setText("start parsing");
@@ -144,7 +165,7 @@ public class GUI {
 					lblTag.setText("Tag:");
 					txtInsertTagHere.setText("insert tag here");
 					break;
-				case "http://g.e-hentai.org/ - Single Album Page":
+				case GE_HENTAI_SINGLE:
 					Parsebtn.setEnabled(true);
 					Parsebtn.setFont(new Font("Dialog", Font.BOLD, 12));
 					Parsebtn.setText("start parsing");
@@ -155,7 +176,7 @@ public class GUI {
 					txtInsertTagHere.setText("insert page URL here");
 					lblNewLabel.setEnabled(false);
 					break;
-				case "http://g.e-hentai.org/ - >=1 Pages":
+				case GE_HENTAI_MORE:
 					Parsebtn.setEnabled(true);
 					Parsebtn.setFont(new Font("Dialog", Font.BOLD, 12));
 					Parsebtn.setText("start parsing");
@@ -167,8 +188,8 @@ public class GUI {
 					txtInsertTagHere.setText("insert album URL here");
 					
 					break;
-				case "http://rule34.paheal.net/":
-				case "http://gelbooru.com/":
+				case PAHEAL:
+				case GELBOORU:
 
 					Parsebtn.setEnabled(true);
 					Parsebtn.setFont(new Font("Dialog", Font.BOLD, 12));
@@ -181,8 +202,9 @@ public class GUI {
 					txtInsertTagHere.setText("insert tag here");
 					lblNewLabel.setText("Pages to parse:");
 					break;
-				case "4chan-Thread - http://boards.4chan.org/x/res/123123":
-				case "Infinity Chan Thread - https://8chan.co/BOARD/res/THREADNR.html":
+				case FOURCHAN_THREAD:
+				case INFINITYCHAN_THREAD:
+				case ARCHIVE_MOE_THREAD:
 
 					Parsebtn.setEnabled(true);
 					Parsebtn.setFont(new Font("Dialog", Font.BOLD, 12));
@@ -196,8 +218,8 @@ public class GUI {
 					txtInsertTagHere.setText("insert link here");
 					break;
 
-				case "4chan-Board - http://boards.4chan.org/x/catalog":
-				case "Infinity Chan Board - https://8chan.co/BOARDNR/":
+				case FOURCHAN_BOARD:
+				case INFINITYCHAN_BOARD:
 					Parsebtn.setEnabled(true);
 					Parsebtn.setFont(new Font("Dialog", Font.BOLD, 12));
 					Parsebtn.setText("start parsing");
@@ -209,7 +231,19 @@ public class GUI {
 					lblTag.setText("Board(eg: v or e):");
 					txtInsertTagHere.setText("insert Board Letter here");
 					break;
-				case "Tumblr Artist - http://XxXxXxX.tumblr.com":
+				case ARCHIVE_MOE_BOARD:
+					Parsebtn.setEnabled(true);
+					Parsebtn.setFont(new Font("Dialog", Font.BOLD, 12));
+					Parsebtn.setText("start parsing");
+					DelayField.setText("10");
+					lblNewLabel.setEnabled(true);
+					lblNewLabel.setText("Sites to parse(1 Site = 100 Threads):");
+					lblNewLabel_1.setEnabled(false);
+					PageSpinner.setEnabled(true);
+					lblTag.setText("Board(eg: v or e):");
+					txtInsertTagHere.setText("insert Board Letter here");
+					break;
+				case TUMBLR:
 					Parsebtn.setEnabled(true);
 					Parsebtn.setFont(new Font("Dialog", Font.BOLD, 12));
 					Parsebtn.setText("start parsing");
@@ -222,7 +256,7 @@ public class GUI {
 					lblNewLabel.setText("Pages to parse:");
 					break;
 
-				case "Imgur-Album - http://imgur.com/a/xXxXx":
+				case IMGUR:
 
 					lblNewLabel.setEnabled(false);
 					lblNewLabel_1.setEnabled(false);
@@ -240,17 +274,19 @@ public class GUI {
 
 		comboBox.setModel(new DefaultComboBoxModel<Object>(
 				new String[] {
-						"http://rule34.paheal.net/",
-						"http://rule34.xxx/",
-						"http://gelbooru.com/",
-						"http://g.e-hentai.org/ - Single Album Page",
-						"http://g.e-hentai.org/ - >=1 Pages",
-						"4chan-Thread - http://boards.4chan.org/x/res/123123",
-						"4chan-Board - http://boards.4chan.org/x/catalog",
-						"Infinity Chan Thread - https://8chan.co/BOARD/res/THREADNR.html",
-						"Infinity Chan Board - https://8chan.co/BOARDNR/",
-						"Tumblr Artist - http://XxXxXxX.tumblr.com",
-						"Imgur-Album - http://imgur.com/a/xXxXx"
+						PAHEAL,
+						XXX,
+						GELBOORU,
+						GE_HENTAI_SINGLE,
+						GE_HENTAI_MORE,
+						FOURCHAN_THREAD,
+						FOURCHAN_BOARD,
+						ARCHIVE_MOE_THREAD,
+						ARCHIVE_MOE_BOARD,
+						INFINITYCHAN_THREAD,
+						INFINITYCHAN_BOARD,
+						TUMBLR,
+						IMGUR
 						}));
 		comboBox.setBounds(434, 35, 313, 24);
 
@@ -307,42 +343,48 @@ public class GUI {
 					int delay = Integer.parseInt(DelayField.getText());
 
 					switch (site) {
-					case "http://rule34.paheal.net/":
+					case PAHEAL:
 
 						parser = new PahealParser();
 						parser.setup(tag, pages, g, delay);
 						break;
-					case "http://rule34.xxx/":
+					case XXX:
 						parser = new XXXParser();
 						parser.setup(tag, pages, g, delay);
 						break;
-					case "http://gelbooru.com/":
+					case GELBOORU:
 						parser = new GelBooruParser();
 						parser.setup(tag, pages, g, delay);
 						break;
-					case "4chan-Thread - http://boards.4chan.org/x/res/123123":
+					case FOURCHAN_THREAD:
 						parser = new FourChanParser(tag, delay, g, 0);
 						break;
-					case "4chan-Board - http://boards.4chan.org/x/catalog":
+					case FOURCHAN_BOARD:
 						parser = new FourChanParser(tag, delay, g, 1, pages);
 						break;
-					case "Infinity Chan Thread - https://8chan.co/BOARD/res/THREADNR.html":
+					case INFINITYCHAN_THREAD:
 						parser = new InfinityChanParser(tag, delay, g, 0);
 						break;
-					case "Infinity Chan Board - https://8chan.co/BOARDNR/":
+					case INFINITYCHAN_BOARD:
 						parser = new InfinityChanParser(tag, delay, g, 1, pages);
 						break;
-					case "Tumblr Artist - http://XxXxXxX.tumblr.com":
+					case ARCHIVE_MOE_THREAD:
+						parser = new ArchiveMoeParser(tag, delay, g, 0);
+						break;
+					case ARCHIVE_MOE_BOARD:
+						parser = new ArchiveMoeParser(tag, delay, g, 1, pages);
+						break;
+					case TUMBLR:
 						parser = new TumblrParser();
 						parser.setup(tag, pages, g, delay);
 						break;
-					case "Imgur-Album - http://imgur.com/a/xXxXx":
+					case IMGUR:
 						parser = new ImgurParser(tag,delay,g);
 						break;
-					case "http://g.e-hentai.org/ - Single Album Page":
+					case GE_HENTAI_SINGLE:
 						parser = new GEHentaiParser(tag,delay,g,false,pages);
 						break;
-					case "http://g.e-hentai.org/ - >=1 Pages":
+					case GE_HENTAI_MORE:
 						parser = new GEHentaiParser(tag,delay,g,true,pages);
 
 					}

@@ -49,12 +49,10 @@ public class FourChanParser extends ImageParser {
 			
 			parseImagesfromBoard();
 		} else {
+			if(url.endsWith("/"))
+				url=url.substring(0, url.length()-1);
 			int temp = url.lastIndexOf('/');
-			String temps = url.substring(0, temp);
-			System.out.println(temps);
-			temp = temps.lastIndexOf('/');
-			String threadNr = url.substring(temp+1,temps.length());
-			
+			String threadNr = url.substring(temp+1,url.length());
 			temp = url.lastIndexOf("/thread/");
 			url = url.substring(0,temp);
 			temp = url.lastIndexOf('/');
@@ -62,7 +60,6 @@ public class FourChanParser extends ImageParser {
 			File dir = new File(board);
 			dir.mkdir();
 			gui.appendLog("Folder '"+board+"' created",true);
-			
 			parseImagesfromThread(Long.parseLong(threadNr));
 			
 		}
