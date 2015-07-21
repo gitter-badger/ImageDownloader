@@ -27,7 +27,10 @@ import javax.swing.DropMode;
 
 import parsers.*;
 
+import gui.BackgroundArea;
+
 import java.io.IOException;
+import java.util.Random;
 
 
 
@@ -63,9 +66,12 @@ public class GUI {
 	private final String GE_HENTAI_SINGLE = "http://g.e-hentai.org/ - Single Album Page";
 	private final String GE_HENTAI_MORE = "http://g.e-hentai.org/ - >=1 Pages";
 	
-	private final String ARCHIVE_MOE_THREAD = "archive.moe (Thread) - https://archive.moe/BOARD/thread/THREADNR/";
+	private final String ARCHIVE_MOE_THREAD = "archive.moe/fgts.jp (Thread) - https://archive.moe/BOARD/thread/THREADNR/";
 	private final String ARCHIVE_MOE_BOARD = "archive-moe (Board) - https://archive.moe/BOARD/";
 	
+	private final String FGTS_JP_BOARD = "fgts.jp (Board) - http://fgts.jp/BOARD/";
+	
+
 	
 	
 	private boolean parsing;
@@ -80,7 +86,7 @@ public class GUI {
 		}
 		frmPahealImageDownloader = new JFrame();
 		frmPahealImageDownloader.setIconImage(Toolkit.getDefaultToolkit()
-				.getImage(this.getClass().getResource("/icon.png")));
+				.getImage(this.getClass().getResource("/images/icon.png")));
 		frmPahealImageDownloader.getContentPane().setBackground(
 				UIManager.getColor("Button.background"));
 		frmPahealImageDownloader.setResizable(false);
@@ -102,8 +108,8 @@ public class GUI {
 		scrollPane.setAutoscrolls(true);
  		frmPahealImageDownloader.getContentPane().add(scrollPane);
  		 
-		try {
-			bgImage = ImageIO.read(Applikation.class.getResource("/bg.png"));
+ 		try {
+			bgImage = ImageIO.read(Applikation.class.getResource("/images/bg"+(new Random().nextInt(4)+1)+".png"));
 		} catch (IOException e) {
 			appendLog("Could not get Background Image", true);
 		}
@@ -232,6 +238,7 @@ public class GUI {
 					txtInsertTagHere.setText("insert Board Letter here");
 					break;
 				case ARCHIVE_MOE_BOARD:
+				case FGTS_JP_BOARD:
 					Parsebtn.setEnabled(true);
 					Parsebtn.setFont(new Font("Dialog", Font.BOLD, 12));
 					Parsebtn.setText("start parsing");
@@ -283,6 +290,7 @@ public class GUI {
 						FOURCHAN_BOARD,
 						ARCHIVE_MOE_THREAD,
 						ARCHIVE_MOE_BOARD,
+						FGTS_JP_BOARD,
 						INFINITYCHAN_THREAD,
 						INFINITYCHAN_BOARD,
 						TUMBLR,
@@ -373,6 +381,9 @@ public class GUI {
 						break;
 					case ARCHIVE_MOE_BOARD:
 						parser = new ArchiveMoeParser(tag, delay, g, 1, pages);
+						break;
+					case FGTS_JP_BOARD:
+						parser = new ArchiveMoeParser(tag, delay, g, 2, pages);
 						break;
 					case TUMBLR:
 						parser = new TumblrParser();

@@ -42,8 +42,13 @@ public class ArchiveMoeParser extends ImageParser {
 	public void run(){
 		gui.appendLog("Parser for archive.moe started.", true);
 		if(mode == 1){
-			parseImagesFromBoard();
+			parseImagesFromMoeBoard();
+		}else if(mode ==2){
+			parseImagesFromFgtBoard();
 		}else{
+			if(url.contains("#")){
+				url=url.substring(0,url.lastIndexOf("/"));
+			}
 			if(url.endsWith("/"))
 				url=url.substring(0, url.length()-1);
 			int temp = url.lastIndexOf('/');
@@ -63,13 +68,36 @@ public class ArchiveMoeParser extends ImageParser {
 		gui.reportback();
 	}
 	
-	private void parseImagesFromBoard() {
+	private void parseImagesFromMoeBoard() {
 		File dir = new File(board);
 		dir.mkdir();
 		gui.appendLog("Folder '"+board+"' created", true);
 		
 		for(int i = 1; i <= limit; i++){
 			Document doc = getDoc("https://archive.moe/"+board+"/gallery/"+i+"/");
+			Elements threadLinks = doc.select("a[class=thread_image_link]");
+			
+			for(Element thread:threadLinks){
+				URL = thread.absUrl("href");
+				String url=URL;
+				if(url.endsWith("/"))
+					url=url.substring(0, url.length()-1);
+				int temp = url.lastIndexOf('/');
+				String threadNr = url.substring(temp+1,url.length());
+				parseImagesfromThread(Long.parseLong(threadNr));
+				
+			}
+		}
+		
+	}
+	
+	private void parseImagesFromFgtBoard() {
+		File dir = new File(board);
+		dir.mkdir();
+		gui.appendLog("Folder '"+board+"' created", true);
+		
+		for(int i = 1; i <= limit; i++){
+			Document doc = getDoc("http://fgts.jp/"+board+"/gallery/"+i+"/");
 			Elements threadLinks = doc.select("a[class=thread_image_link]");
 			
 			for(Element thread:threadLinks){
